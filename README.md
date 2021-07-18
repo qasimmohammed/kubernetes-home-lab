@@ -4,19 +4,24 @@ Playing about installing Kuberenetes on some Raspberry Pi's
 Downloading and ammeding Ubuntu
 	1. Download Ubuntu 20.04.2.0 LTS (Focal Fossa)
 	''' wget "https://releases.ubuntu.com/20.04/ubuntu-20.04.2-live-server-amd64.iso" '''
+
 	2. Get relevant information from ISO
 	''' sudo ap-get update -y '''
 	''' sudo apt-get install -y fdisk '''
 	''' sudo fdisk -l ubuntu-20.04.2-live-server-amd64.iso '''
+
 	3. Using the output of the Above, we need to calculate the start of the ISO using Offset calculation: start * sector size => 0 * 512 => 0
 	''' mkdir ~/mnt '''
 	''' sudo mount -o loop,offset=0,ubuntu-20.04.2-live-server-amd64.iso  ~/mnt '''
 	''' ls ~/mnt '''
+
 	4. Install some binaries to assist with chmod
 	''' sudo apt-get install -y qemu-user-static '''
 	''' systemctl restart systemd-binfmt.service '''
+
 	5. Check everything is working
 	''' sudo chroot ~/mnt/ /usr/bin/uname -a -r '''
+
 	6. Making changes to image: Install and enable SSHD, Set up a local user,Allow the local user to use sudo (without a password, optional),Add authorized keys, Allow root to SSH with the authorized keys (optional) 
 	''' sudo chroot ~/mnt /bin/bash '''
 
